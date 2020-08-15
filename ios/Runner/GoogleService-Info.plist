@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1060916258928-7rpmkce6innc4o9ui68d7e4prbmll1ev.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1060916258928-7rpmkce6innc4o9ui68d7e4prbmll1ev</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCGm1NVysk9yveQiTfV-wlFgkgI-Z0mdWk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1060916258928</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.drakezair.marketplace</string>
+	<key>PROJECT_ID</key>
+	<string>andres-project-702da</string>
+	<key>STORAGE_BUCKET</key>
+	<string>andres-project-702da.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1060916258928:ios:01d6c19f06c5bae1026cb5</string>
+	<key>DATABASE_URL</key>
+	<string>https://andres-project-702da.firebaseio.com</string>
+</dict>
+</plist>

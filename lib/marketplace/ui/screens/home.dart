@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:marketplace/marketplace/repository/firebase_database.dart';
 import 'package:marketplace/marketplace/ui/widgets/card_marketplace.dart';
 
 class Home extends StatefulWidget {
@@ -9,6 +10,29 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  List _brands = [];
+  List _brandsKeys = [];
+  @override
+  void initState() {
+    initFetch() async {
+      var _b = await Brands().getBrands();
+      var tempBrandsArray = [];
+      var tempBrandskeyArray = [];
+      _b.value.forEach((e, i) {
+        tempBrandsArray.add(i);
+        tempBrandskeyArray.add(e);
+      });
+      this.setState(() {
+        _brands = tempBrandsArray;
+        _brandsKeys = tempBrandskeyArray;
+      });
+    }
+
+    initFetch();
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,9 +43,13 @@ class _HomeState extends State<Home> {
             child: Column(
               children: <Widget>[
                 Container(
-                  color: Colors.black38,
-                  padding: EdgeInsets.only(
-                      right: 20.0, left: 20.0, top: 20.0, bottom: 20.0),
+                  padding: EdgeInsets.all(10.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border(
+                      bottom: BorderSide(width: 1.0, color: Colors.black54),
+                    ),
+                  ),
                   child: TextFormField(
                     decoration: InputDecoration(
                       prefixIcon: Icon(Icons.search),
@@ -73,12 +101,15 @@ class _HomeState extends State<Home> {
                             crossAxisCount: 2,
                             mainAxisSpacing: 7.0,
                             crossAxisSpacing: 10.0,
-                            childAspectRatio:
-                                MediaQuery.of(context).size.height / 780,
+                            childAspectRatio: 2 / 2.3,
                           ),
-                          itemCount: 10,
+                          itemCount: _brands.length,
                           itemBuilder: (context, index) => CardMarketplace(
-                            id: index.toString(),
+                            id: _brandsKeys[index],
+                            photos: _brands[index]['photos'],
+                            name: _brands[index]['name'],
+                            desc: _brands[index]['desc'],
+                            instagram: _brands[index]['instagram'],
                           ),
                         ),
                       ),
@@ -89,8 +120,11 @@ class _HomeState extends State<Home> {
             )),
       ),
       bottomNavigationBar: CupertinoTabBar(
+        onTap: (value) => print(value),
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home)),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+          ),
           BottomNavigationBarItem(icon: Icon(Icons.access_alarm)),
         ],
       ),

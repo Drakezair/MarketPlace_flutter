@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:marketplace/user/repository/firebase_auth_service.dart';
 
-class SignIn extends StatefulWidget {
+class SignUp extends StatefulWidget {
   @override
-  _SignInState createState() => _SignInState();
+  _SignUpState createState() => _SignUpState();
 }
 
-class _SignInState extends State<SignIn> {
-  String email, password;
+class _SignUpState extends State<SignUp> {
+  String email, password, name;
+
   handleSubmit() async {
     print(email);
     if (await Auth()
-        .signInWithEmailAndPassword(email: email, password: password)) {
+        .signUpWithEmailAndPassword(email: email, password: password)) {
       Navigator.pushReplacementNamed(context, "/home");
     } else {
       // TODO
@@ -36,17 +37,15 @@ class _SignInState extends State<SignIn> {
                 ),
                 gradient: LinearGradient(
                   begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
                   colors: [
-                    Color(0xFF00bcd4),
-                    Color(0xFFb2ebf2),
+                    Color(0xFF0f4c75),
+                    Color(0xFF3282b8),
                   ],
                 ),
               ),
             ),
             Container(
-              margin: EdgeInsets.only(
-                  top: 50.0, left: 30.0, right: 30.0, bottom: 30.0),
+              margin: EdgeInsets.all(30.0),
               child: Column(
                 children: <Widget>[
                   Image.asset(
@@ -66,8 +65,20 @@ class _SignInState extends State<SignIn> {
                       child: Column(
                         children: <Widget>[
                           Text(
-                            'Inicia Sesión',
+                            'Registrate',
                             style: TextStyle(fontSize: 30.0),
+                          ),
+                          TextFormField(
+                            decoration: InputDecoration(
+                              hintText: "Nombre Completo",
+                              suffixIcon: Icon(Icons.account_circle),
+                            ),
+                            onChanged: (newValue) => this.setState(() {
+                              name = newValue.toString();
+                            }),
+                          ),
+                          SizedBox(
+                            height: 30.0,
                           ),
                           TextFormField(
                             decoration: InputDecoration(
@@ -116,10 +127,9 @@ class _SignInState extends State<SignIn> {
                   Container(
                     margin: EdgeInsets.only(top: 20.0),
                     child: InkWell(
-                      onTap: () =>
-                          Navigator.pushNamed(context, '/auth/sign_up'),
+                      onTap: () => Navigator.pop(context),
                       child: Text(
-                        "Crear cuenta",
+                        "¿Ya tienes una cuenta?",
                         style: TextStyle(
                           color: Color(0xFF3282b8),
                           fontSize: 15.0,
