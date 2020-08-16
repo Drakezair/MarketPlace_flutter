@@ -11,3 +11,15 @@ class Brands {
     });
   }
 }
+
+class CategoriesRepo {
+  getCategories() async {
+    return await FirebaseDatabase.instance
+        .reference()
+        .child('categories')
+        .once()
+        .then((DataSnapshot value) {
+      return value;
+    });
+  }
+}

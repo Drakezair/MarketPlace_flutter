@@ -1,36 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:marketplace/marketplace/ui/screens/produc_detail.dart';
 
-class CardMarketplace extends StatelessWidget {
-  final String id, name, desc, instagram, address;
-  int phone;
-
-  final List<dynamic> photos;
-  CardMarketplace(
-      {this.id,
-      this.photos,
-      this.name,
-      this.desc,
-      this.instagram,
-      this.address,
-      this.phone});
+class CardCategory extends StatelessWidget {
+  final String id, name, photo;
+  CardCategory({
+    this.id,
+    this.photo,
+    this.name,
+  });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ProductDetail(
-              id: id,
-              name: name,
-              desc: desc,
-              photos: photos,
-              instagram: instagram,
-              address: address,
-              phone: phone),
-        ),
-      ),
+      onTap: () => null,
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -43,7 +24,7 @@ class CardMarketplace extends StatelessWidget {
               tag: "taghero$id",
               child: Image(
                 height: MediaQuery.of(context).size.width / 2.03,
-                image: NetworkImage(photos[0]),
+                image: NetworkImage(photo),
               ),
             ),
             Container(

@@ -1,31 +1,30 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:marketplace/marketplace/repository/firebase_database.dart';
+import 'package:marketplace/marketplace/ui/widgets/card_category.dart';
 import 'package:marketplace/marketplace/ui/widgets/card_marketplace.dart';
-import 'package:marketplace/my_flutter_app_icons.dart';
 
-class Home extends StatefulWidget {
+class Categories extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  _CategoriesState createState() => _CategoriesState();
 }
 
-class _HomeState extends State<Home> {
-  List _brands = [];
-  List _brandsKeys = [];
+class _CategoriesState extends State<Categories> {
+  List _categories = [];
+  List _categoriesKeys = [];
   @override
   void initState() {
     initFetch() async {
-      var _b = await Brands().getBrands();
-      var tempBrandsArray = [];
-      var tempBrandskeyArray = [];
+      var _b = await CategoriesRepo().getCategories();
+      var tempcategoriesArray = [];
+      var tempcategorieskeyArray = [];
       _b.value.forEach((e, i) {
-        tempBrandsArray.add(i);
-        tempBrandskeyArray.add(e);
+        tempcategoriesArray.add(i);
+        tempcategorieskeyArray.add(e);
       });
       this.setState(() {
-        _brands = tempBrandsArray;
-        _brandsKeys = tempBrandskeyArray;
+        _categories = tempcategoriesArray;
+        _categoriesKeys = tempcategorieskeyArray;
       });
     }
 
@@ -69,28 +68,6 @@ class _HomeState extends State<Home> {
                   shrinkWrap: true,
                   children: <Widget>[
                     Container(
-                      child: CarouselSlider(
-                        options: CarouselOptions(
-                          height: 150.0,
-                          viewportFraction: 1.0,
-                        ),
-                        items: [1, 2, 3, 4, 5].map((i) {
-                          return Builder(
-                            builder: (BuildContext context) {
-                              return Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  decoration:
-                                      BoxDecoration(color: Colors.amber),
-                                  child: Text(
-                                    'text $i',
-                                    style: TextStyle(fontSize: 16.0),
-                                  ));
-                            },
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                    Container(
                       padding: EdgeInsets.only(top: 10.0),
                       child: GridView.builder(
                         shrinkWrap: true,
@@ -101,15 +78,11 @@ class _HomeState extends State<Home> {
                           crossAxisSpacing: 10.0,
                           childAspectRatio: 2 / 2.3,
                         ),
-                        itemCount: _brands.length,
-                        itemBuilder: (context, index) => CardMarketplace(
-                          id: _brandsKeys[index],
-                          photos: _brands[index]['photos'],
-                          name: _brands[index]['name'],
-                          desc: _brands[index]['desc'],
-                          instagram: _brands[index]['instagram'],
-                          address: _brands[index]['address'],
-                          phone: _brands[index]['phone'],
+                        itemCount: _categories.length,
+                        itemBuilder: (context, index) => CardCategory(
+                          id: _categoriesKeys[index],
+                          name: _categories[index]['name'],
+                          photo: _categories[index]["photo"],
                         ),
                       ),
                     ),

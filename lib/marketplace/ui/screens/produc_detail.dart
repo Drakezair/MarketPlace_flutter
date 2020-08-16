@@ -1,10 +1,19 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:marketplace/my_flutter_app_icons.dart';
 
 class ProductDetail extends StatelessWidget {
-  final String id, name, desc, instagram;
+  final String id, name, desc, instagram, address;
+  int phone;
   final List<dynamic> photos;
-  ProductDetail({this.id, this.name, this.desc, this.photos, this.instagram});
+  ProductDetail(
+      {this.id,
+      this.name,
+      this.desc,
+      this.photos,
+      this.instagram,
+      this.address,
+      this.phone});
 
   @override
   Widget build(BuildContext context) {
@@ -53,21 +62,75 @@ class ProductDetail extends StatelessWidget {
             Container(
               color: Colors.black12,
               child: ExpansionTile(
-                title: Text("Contacto"),
+                initiallyExpanded: true,
+                title: Text(
+                  "Contacto",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w800,
+                      color: Colors.black,
+                      fontSize: 20.0),
+                ),
                 children: [
                   Container(
                     padding: EdgeInsets.all(20.0),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
+                        Padding(
+                          padding: EdgeInsets.only(right: 10.0),
+                          child: Icon(
+                            MyFlutterApp.instagram_filled,
+                          ),
+                        ),
                         Text(
                           this.instagram,
                           style: TextStyle(
                             fontSize: 22,
-                            fontWeight: FontWeight.w900,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
-                        Icon(Icons.accessible_outlined)
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(20.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(right: 10.0),
+                          child: Icon(
+                            Icons.home_filled,
+                          ),
+                        ),
+                        Text(
+                          this.address,
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(20.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(right: 10.0),
+                          child: Icon(
+                            Icons.phone,
+                          ),
+                        ),
+                        Text(
+                          this.phone.toString(),
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ],
                     ),
                   )
@@ -76,6 +139,10 @@ class ProductDetail extends StatelessWidget {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => null,
+        child: Icon(Icons.favorite),
       ),
     );
   }

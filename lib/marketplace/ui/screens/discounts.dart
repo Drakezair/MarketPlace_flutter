@@ -1,16 +1,15 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:marketplace/marketplace/repository/firebase_database.dart';
 import 'package:marketplace/marketplace/ui/widgets/card_marketplace.dart';
 import 'package:marketplace/my_flutter_app_icons.dart';
 
-class Home extends StatefulWidget {
+class Discount extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  _DiscountState createState() => _DiscountState();
 }
 
-class _HomeState extends State<Home> {
+class _DiscountState extends State<Discount> {
   List _brands = [];
   List _brandsKeys = [];
   @override
@@ -20,8 +19,10 @@ class _HomeState extends State<Home> {
       var tempBrandsArray = [];
       var tempBrandskeyArray = [];
       _b.value.forEach((e, i) {
-        tempBrandsArray.add(i);
-        tempBrandskeyArray.add(e);
+        if (i['onDiscount']) {
+          tempBrandsArray.add(i);
+          tempBrandskeyArray.add(e);
+        }
       });
       this.setState(() {
         _brands = tempBrandsArray;
@@ -68,28 +69,6 @@ class _HomeState extends State<Home> {
                 child: ListView(
                   shrinkWrap: true,
                   children: <Widget>[
-                    Container(
-                      child: CarouselSlider(
-                        options: CarouselOptions(
-                          height: 150.0,
-                          viewportFraction: 1.0,
-                        ),
-                        items: [1, 2, 3, 4, 5].map((i) {
-                          return Builder(
-                            builder: (BuildContext context) {
-                              return Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  decoration:
-                                      BoxDecoration(color: Colors.amber),
-                                  child: Text(
-                                    'text $i',
-                                    style: TextStyle(fontSize: 16.0),
-                                  ));
-                            },
-                          );
-                        }).toList(),
-                      ),
-                    ),
                     Container(
                       padding: EdgeInsets.only(top: 10.0),
                       child: GridView.builder(
