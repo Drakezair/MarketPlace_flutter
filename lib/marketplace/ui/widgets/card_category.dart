@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:marketplace/marketplace/ui/screens/category.dart';
 
 class CardCategory extends StatelessWidget {
   final String id, name, photo;
@@ -11,7 +12,15 @@ class CardCategory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => null,
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Category(
+            id: id,
+            name: name,
+          ),
+        ),
+      ),
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,

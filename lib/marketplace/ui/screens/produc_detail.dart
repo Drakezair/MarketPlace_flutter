@@ -1,10 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:marketplace/marketplace/repository/firebase_database.dart';
 import 'package:marketplace/my_flutter_app_icons.dart';
 
-class ProductDetail extends StatelessWidget {
+class ProductDetail extends StatefulWidget {
   final String id, name, desc, instagram, address;
-  int phone;
+  final int phone;
   final List<dynamic> photos;
   ProductDetail(
       {this.id,
@@ -14,6 +16,68 @@ class ProductDetail extends StatelessWidget {
       this.instagram,
       this.address,
       this.phone});
+  @override
+  _ProductDetailState createState() => _ProductDetailState(
+      id: id,
+      name: name,
+      desc: desc,
+      photos: photos,
+      instagram: instagram,
+      address: address,
+      phone: phone);
+}
+
+class _ProductDetailState extends State<ProductDetail> {
+  final String id, name, desc, instagram, address;
+  final int phone;
+  final List<dynamic> photos;
+  bool isFavorite = true;
+  _ProductDetailState({
+    this.id,
+    this.name,
+    this.desc,
+    this.photos,
+    this.instagram,
+    this.address,
+    this.phone,
+  });
+
+  @override
+  void initState() {
+    initFetch() async {
+      var _favorites = await Brands().getFavorites();
+      if (_favorites.value != null) {
+        _favorites.value.forEach((i, e) {
+          if (e == id) {
+            this.setState(() {
+              isFavorite = false;
+            });
+          }
+        });
+      }
+    }
+
+    initFetch();
+
+    super.initState();
+  }
+
+  handleAddFavorite() {
+    FirebaseAuth.instance.currentUser().then((value) {
+      Brands().addToFavorite(value.uid, id);
+      this.setState(() {
+        isFavorite = !isFavorite;
+      });
+    });
+  }
+
+  handleRemoveFavorite() {
+    Brands().removeToFavorite(id);
+    this.setState(() {
+      isFavorite = !isFavorite;
+    });
+    Navigator.popAndPushNamed(context, "/home");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -140,10 +204,15 @@ class ProductDetail extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => null,
-        child: Icon(Icons.favorite),
-      ),
+      floatingActionButton: isFavorite
+          ? FloatingActionButton(
+              onPressed: () => handleAddFavorite(),
+              child: Icon(Icons.favorite),
+            )
+          : FloatingActionButton(
+              onPressed: () => handleRemoveFavorite(),
+              child: Icon(Icons.close),
+            ),
     );
   }
 }

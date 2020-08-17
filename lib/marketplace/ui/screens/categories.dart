@@ -14,6 +14,8 @@ class _CategoriesState extends State<Categories> {
   List _categoriesKeys = [];
   @override
   void initState() {
+    super.initState();
+
     initFetch() async {
       var _b = await CategoriesRepo().getCategories();
       var tempcategoriesArray = [];
@@ -29,8 +31,6 @@ class _CategoriesState extends State<Categories> {
     }
 
     initFetch();
-
-    super.initState();
   }
 
   @override

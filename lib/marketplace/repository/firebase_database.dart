@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class Brands {
@@ -9,6 +10,50 @@ class Brands {
         .then((DataSnapshot value) {
       return value;
     });
+  }
+
+  addToFavorite(userId, brandId) async {
+    await FirebaseDatabase.instance
+        .reference()
+        .child('users')
+        .child(userId)
+        .child("favorite_brands")
+        .push()
+        .set(brandId);
+  }
+
+  removeToFavorite(brandId) async {
+    var _currentUser = await FirebaseAuth.instance.currentUser();
+    await FirebaseDatabase.instance
+        .reference()
+        .child('users')
+        .child(_currentUser.uid)
+        .child("favorite_brands")
+        .once()
+        .then((value) {
+      value.value.forEach((i, e) {
+        if (e == brandId) {
+          FirebaseDatabase.instance
+              .reference()
+              .child('users')
+              .child(_currentUser.uid)
+              .child("favorite_brands")
+              .child(i)
+              .remove();
+        }
+      });
+    });
+  }
+
+  getFavorites() async {
+    var _currentUser = await FirebaseAuth.instance.currentUser();
+    return await FirebaseDatabase.instance
+        .reference()
+        .child('users')
+        .child(_currentUser.uid)
+        .child('favorite_brands')
+        .once()
+        .then((value) => value);
   }
 }
 

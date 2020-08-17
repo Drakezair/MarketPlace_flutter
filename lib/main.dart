@@ -42,7 +42,6 @@ class RoutePage extends StatefulWidget {
 class _RoutePageState extends State<RoutePage> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     FirebaseAuth.instance.onAuthStateChanged.listen((firebaseUser) {
       if (firebaseUser != null) {

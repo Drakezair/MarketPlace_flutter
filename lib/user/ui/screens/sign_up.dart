@@ -10,9 +10,8 @@ class _SignUpState extends State<SignUp> {
   String email, password, name;
 
   handleSubmit() async {
-    print(email);
-    if (await Auth()
-        .signUpWithEmailAndPassword(email: email, password: password)) {
+    if (await Auth().signUpWithEmailAndPassword(
+        email: email, password: password, name: name)) {
       Navigator.pushReplacementNamed(context, "/home");
     } else {
       // TODO
@@ -93,6 +92,7 @@ class _SignUpState extends State<SignUp> {
                             height: 30.0,
                           ),
                           TextFormField(
+                            obscureText: true,
                             decoration: InputDecoration(
                               hintText: "Contraseña",
                               suffixIcon: Icon(Icons.vpn_key),

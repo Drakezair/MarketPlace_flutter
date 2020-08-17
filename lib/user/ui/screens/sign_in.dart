@@ -9,7 +9,6 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   String email, password;
   handleSubmit() async {
-    print(email);
     if (await Auth()
         .signInWithEmailAndPassword(email: email, password: password)) {
       Navigator.pushReplacementNamed(context, "/home");
@@ -82,6 +81,7 @@ class _SignInState extends State<SignIn> {
                             height: 30.0,
                           ),
                           TextFormField(
+                            obscureText: true,
                             decoration: InputDecoration(
                               hintText: "Contraseña",
                               suffixIcon: Icon(Icons.vpn_key),

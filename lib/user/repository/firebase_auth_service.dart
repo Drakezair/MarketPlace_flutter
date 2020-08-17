@@ -1,18 +1,20 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 class Auth {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
   Future<bool> signUpWithEmailAndPassword(
-      {@required email, @required password}) async {
+      {@required email, @required password, @required name}) async {
     try {
       FirebaseUser user = (await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       ))
           .user;
-      print(user);
+      FirebaseDatabase.instance.reference().child("users").child(user.uid).set({
+        name: name,
+      });
       return true;
     } catch (Exception) {
       return false;

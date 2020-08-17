@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:marketplace/marketplace/ui/screens/categories.dart';
 import 'package:marketplace/marketplace/ui/screens/discounts.dart';
+import 'package:marketplace/marketplace/ui/screens/favorites.dart';
 import 'package:marketplace/marketplace/ui/screens/home.dart';
 import 'package:marketplace/my_flutter_app_icons.dart';
 
@@ -17,6 +18,7 @@ class _HomeAppState extends State<HomeApp> {
     Home(),
     Discount(),
     Categories(),
+    Favorites(),
   ];
 
   @override
