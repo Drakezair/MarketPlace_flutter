@@ -5,17 +5,19 @@ import 'package:marketplace/marketplace/repository/firebase_database.dart';
 import 'package:marketplace/my_flutter_app_icons.dart';
 
 class ProductDetail extends StatefulWidget {
-  final String id, name, desc, instagram, address;
-  final int phone;
+  final String id, name, desc, instagram, address, phone;
+  final bool onDiscount;
   final List<dynamic> photos;
-  ProductDetail(
-      {this.id,
-      this.name,
-      this.desc,
-      this.photos,
-      this.instagram,
-      this.address,
-      this.phone});
+  ProductDetail({
+    this.id,
+    this.name,
+    this.desc,
+    this.photos,
+    this.instagram,
+    this.address,
+    this.phone,
+    this.onDiscount,
+  });
   @override
   _ProductDetailState createState() => _ProductDetailState(
       id: id,
@@ -24,27 +26,34 @@ class ProductDetail extends StatefulWidget {
       photos: photos,
       instagram: instagram,
       address: address,
-      phone: phone);
+      phone: phone,
+      onDiscount: onDiscount);
 }
 
 class _ProductDetailState extends State<ProductDetail> {
-  final String id, name, desc, instagram, address;
-  final int phone;
+  final String id, name, desc, instagram, address, phone;
+  final bool onDiscount;
   final List<dynamic> photos;
   bool isFavorite = true;
-  _ProductDetailState({
-    this.id,
-    this.name,
-    this.desc,
-    this.photos,
-    this.instagram,
-    this.address,
-    this.phone,
-  });
+  String email = '';
+  _ProductDetailState(
+      {this.id,
+      this.name,
+      this.desc,
+      this.photos,
+      this.instagram,
+      this.address,
+      this.phone,
+      this.onDiscount});
 
   @override
   void initState() {
     initFetch() async {
+      FirebaseAuth.instance.currentUser().then((value) {
+        this.setState(() {
+          email = value.email;
+        });
+      });
       var _favorites = await Brands().getFavorites();
       if (_favorites.value != null) {
         _favorites.value.forEach((i, e) {
@@ -122,6 +131,10 @@ class _ProductDetailState extends State<ProductDetail> {
                   Text(desc.length >= 150 ? desc.substring(0, 150) : desc)
                 ],
               ),
+            ),
+            Container(
+              padding: EdgeInsets.all(10.0),
+              child: this.onDiscount == true ? Text(this.email) : null,
             ),
             Container(
               color: Colors.black12,

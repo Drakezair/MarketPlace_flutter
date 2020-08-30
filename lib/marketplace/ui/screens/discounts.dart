@@ -89,6 +89,7 @@ class _DiscountState extends State<Discount> {
                           instagram: _brands[index]['instagram'],
                           address: _brands[index]['address'],
                           phone: _brands[index]['phone'],
+                          onDiscount: _brands[index]['onDiscount'],
                         ),
                       ),
                     ),

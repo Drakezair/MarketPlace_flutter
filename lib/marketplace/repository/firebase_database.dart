@@ -57,6 +57,18 @@ class Brands {
   }
 }
 
+class Wallpapers {
+  getWallpapers() async {
+    return await FirebaseDatabase.instance
+        .reference()
+        .child('wallpapers')
+        .once()
+        .then((DataSnapshot value) {
+      return value;
+    });
+  }
+}
+
 class CategoriesRepo {
   getCategories() async {
     return await FirebaseDatabase.instance

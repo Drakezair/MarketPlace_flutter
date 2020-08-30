@@ -2,18 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:marketplace/marketplace/ui/screens/produc_detail.dart';
 
 class CardMarketplace extends StatelessWidget {
-  final String id, name, desc, instagram, address;
-  int phone;
+  final String id, name, desc, instagram, address, phone;
+  bool onDiscount;
 
   final List<dynamic> photos;
-  CardMarketplace(
-      {this.id,
-      this.photos,
-      this.name,
-      this.desc,
-      this.instagram,
-      this.address,
-      this.phone});
+  CardMarketplace({
+    this.id,
+    this.photos,
+    this.name,
+    this.desc,
+    this.instagram,
+    this.address,
+    this.phone,
+    this.onDiscount,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +24,15 @@ class CardMarketplace extends StatelessWidget {
         context,
         MaterialPageRoute(
           builder: (context) => ProductDetail(
-              id: id,
-              name: name,
-              desc: desc,
-              photos: photos,
-              instagram: instagram,
-              address: address,
-              phone: phone),
+            id: id,
+            name: name,
+            desc: desc,
+            photos: photos,
+            instagram: instagram,
+            address: address,
+            phone: phone,
+            onDiscount: onDiscount,
+          ),
         ),
       ),
       child: Container(

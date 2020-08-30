@@ -5,6 +5,7 @@ import 'package:marketplace/marketplace/ui/screens/discounts.dart';
 import 'package:marketplace/marketplace/ui/screens/favorites.dart';
 import 'package:marketplace/marketplace/ui/screens/home.dart';
 import 'package:marketplace/my_flutter_app_icons.dart';
+import 'package:marketplace/user/ui/screens/profile.dart';
 
 class HomeApp extends StatefulWidget {
   @override
@@ -19,6 +20,7 @@ class _HomeAppState extends State<HomeApp> {
     Discount(),
     Categories(),
     Favorites(),
+    Profile()
   ];
 
   @override

@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:marketplace/marketplace/repository/firebase_database.dart';
 import 'package:marketplace/marketplace/ui/widgets/card_marketplace.dart';
-import 'package:marketplace/my_flutter_app_icons.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -13,19 +12,28 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   List _brands = [];
   List _brandsKeys = [];
+  List _wallpapers = [];
   @override
   void initState() {
     initFetch() async {
       var _b = await Brands().getBrands();
+      var _w = await Wallpapers().getWallpapers();
       var tempBrandsArray = [];
       var tempBrandskeyArray = [];
+      var tempWallpapers = [];
+      _w.value.forEach((e, i) {
+        tempWallpapers.add(i["photo"]);
+      });
       _b.value.forEach((e, i) {
-        tempBrandsArray.add(i);
-        tempBrandskeyArray.add(e);
+        if (!i['onDiscount']) {
+          tempBrandsArray.add(i);
+          tempBrandskeyArray.add(e);
+        }
       });
       this.setState(() {
         _brands = tempBrandsArray;
         _brandsKeys = tempBrandskeyArray;
+        _wallpapers = tempWallpapers;
       });
     }
 
@@ -74,17 +82,14 @@ class _HomeState extends State<Home> {
                           height: 150.0,
                           viewportFraction: 1.0,
                         ),
-                        items: [1, 2, 3, 4, 5].map((i) {
+                        items: _wallpapers.map((i) {
                           return Builder(
                             builder: (BuildContext context) {
                               return Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  decoration:
-                                      BoxDecoration(color: Colors.amber),
-                                  child: Text(
-                                    'text $i',
-                                    style: TextStyle(fontSize: 16.0),
-                                  ));
+                                width: MediaQuery.of(context).size.width,
+                                decoration: BoxDecoration(color: Colors.amber),
+                                child: Image.network(i),
+                              );
                             },
                           );
                         }).toList(),
@@ -110,6 +115,7 @@ class _HomeState extends State<Home> {
                           instagram: _brands[index]['instagram'],
                           address: _brands[index]['address'],
                           phone: _brands[index]['phone'],
+                          onDiscount: _brands[index]['onDiscount'],
                         ),
                       ),
                     ),

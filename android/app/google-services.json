@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1060916258928",
+    "firebase_url": "https://andres-project-702da.firebaseio.com",
+    "project_id": "andres-project-702da",
+    "storage_bucket": "andres-project-702da.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1060916258928:android:55baccd2ea16ea5b026cb5",
+        "android_client_info": {
+          "package_name": "com.drakezair.locall"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1060916258928-bk9pakvul1ab5de7kgvtr1frldpg23ha.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnby-9RBfgexVl4C-fZbe__YIFbMGLI6Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1060916258928-bk9pakvul1ab5de7kgvtr1frldpg23ha.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1060916258928-7rpmkce6innc4o9ui68d7e4prbmll1ev.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.drakezair.marketplace"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

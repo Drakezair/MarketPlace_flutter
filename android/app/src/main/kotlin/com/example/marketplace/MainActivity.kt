@@ -1,4 +1,4 @@
-package com.example.marketplace
+package com.drakezair.locall
 
 import io.flutter.embedding.android.FlutterActivity
 
