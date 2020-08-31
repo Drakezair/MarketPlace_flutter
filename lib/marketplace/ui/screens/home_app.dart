@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:marketplace/marketplace/ui/screens/categories.dart';
-import 'package:marketplace/marketplace/ui/screens/discounts.dart';
-import 'package:marketplace/marketplace/ui/screens/favorites.dart';
-import 'package:marketplace/marketplace/ui/screens/home.dart';
-import 'package:marketplace/my_flutter_app_icons.dart';
-import 'package:marketplace/user/ui/screens/profile.dart';
+import 'package:LocAll/marketplace/ui/screens/categories.dart';
+import 'package:LocAll/marketplace/ui/screens/discounts.dart';
+import 'package:LocAll/marketplace/ui/screens/favorites.dart';
+import 'package:LocAll/marketplace/ui/screens/home.dart';
+import 'package:LocAll/my_flutter_app_icons.dart';
+import 'package:LocAll/user/ui/screens/profile.dart';
 
 class HomeApp extends StatefulWidget {
   @override

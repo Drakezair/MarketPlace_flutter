@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:marketplace/marketplace/ui/screens/category.dart';
+import 'package:LocAll/marketplace/ui/screens/category.dart';
 
 class CardCategory extends StatelessWidget {
   final String id, name, photo;

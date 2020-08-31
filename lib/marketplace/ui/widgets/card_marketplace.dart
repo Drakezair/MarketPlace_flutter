@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:marketplace/marketplace/ui/screens/produc_detail.dart';
+import 'package:LocAll/marketplace/ui/screens/produc_detail.dart';
 
 class CardMarketplace extends StatelessWidget {
   final String id, name, desc, instagram, address, phone;

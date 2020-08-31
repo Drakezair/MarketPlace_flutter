@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import "package:flutter/material.dart";
-import 'package:marketplace/user/repository/firebase_auth_service.dart';
+import 'package:LocAll/user/repository/firebase_auth_service.dart';
 
 class Profile extends StatefulWidget {
   @override

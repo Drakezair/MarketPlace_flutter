@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:marketplace/marketplace/repository/firebase_database.dart';
-import 'package:marketplace/marketplace/ui/widgets/card_marketplace.dart';
-import 'package:marketplace/my_flutter_app_icons.dart';
+import 'package:LocAll/marketplace/repository/firebase_database.dart';
+import 'package:LocAll/marketplace/ui/widgets/card_marketplace.dart';
+import 'package:LocAll/my_flutter_app_icons.dart';
 
 class Discount extends StatefulWidget {
   @override

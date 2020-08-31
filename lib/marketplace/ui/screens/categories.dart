@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:marketplace/marketplace/repository/firebase_database.dart';
-import 'package:marketplace/marketplace/ui/widgets/card_category.dart';
-import 'package:marketplace/marketplace/ui/widgets/card_marketplace.dart';
+import 'package:LocAll/marketplace/repository/firebase_database.dart';
+import 'package:LocAll/marketplace/ui/widgets/card_category.dart';
+import 'package:LocAll/marketplace/ui/widgets/card_marketplace.dart';
 
 class Categories extends StatefulWidget {
   @override

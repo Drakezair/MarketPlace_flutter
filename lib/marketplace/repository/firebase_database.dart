@@ -45,6 +45,17 @@ class Brands {
     });
   }
 
+  addComment(text, brandId) async {
+    var _currentUser = await FirebaseAuth.instance.currentUser();
+    FirebaseDatabase.instance
+        .reference()
+        .child('brands')
+        .child(brandId)
+        .child("comments")
+        .push()
+        .set({"email": _currentUser.email, "text": text});
+  }
+
   getFavorites() async {
     var _currentUser = await FirebaseAuth.instance.currentUser();
     return await FirebaseDatabase.instance

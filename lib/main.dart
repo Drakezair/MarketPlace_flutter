@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:marketplace/marketplace/ui/screens/home_app.dart';
-import 'package:marketplace/user/ui/screens/sign_in.dart';
-import 'package:marketplace/user/ui/screens/sign_up.dart';
+import 'package:LocAll/marketplace/ui/screens/home_app.dart';
+import 'package:LocAll/user/ui/screens/sign_in.dart';
+import 'package:LocAll/user/ui/screens/sign_up.dart';
 
 void main() {
   runApp(MyApp());
