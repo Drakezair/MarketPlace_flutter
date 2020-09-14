@@ -40,29 +40,29 @@ class _CategoriesState extends State<Categories> {
           color: Color(0xFFf0f0f0),
           child: Column(
             children: <Widget>[
-              Container(
-                padding: EdgeInsets.all(10.0),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border(
-                    bottom: BorderSide(width: 1.0, color: Colors.black54),
-                  ),
-                ),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.search),
-                    hintText: "Busca una marca",
-                    contentPadding: EdgeInsets.only(top: 0, bottom: 0),
-                    fillColor: Colors.white,
-                    filled: true,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10.0),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              // Container(
+              //   padding: EdgeInsets.all(10.0),
+              //   decoration: BoxDecoration(
+              //     color: Colors.white,
+              //     border: Border(
+              //       bottom: BorderSide(width: 1.0, color: Colors.black54),
+              //     ),
+              //   ),
+              //   child: TextFormField(
+              //     decoration: InputDecoration(
+              //       prefixIcon: Icon(Icons.search),
+              //       hintText: "Busca una marca",
+              //       contentPadding: EdgeInsets.only(top: 0, bottom: 0),
+              //       fillColor: Colors.white,
+              //       filled: true,
+              //       border: OutlineInputBorder(
+              //         borderRadius: BorderRadius.all(
+              //           Radius.circular(10.0),
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              // ),
               Expanded(
                 child: ListView(
                   shrinkWrap: true,

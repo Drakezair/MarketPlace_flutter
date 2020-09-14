@@ -12,6 +12,10 @@
 ///       - asset: fonts/MyFlutterApp.ttf
 ///
 /// 
+/// * Font Awesome 4, Copyright (C) 2016 by Dave Gandy
+///         Author:    Dave Gandy
+///         License:   SIL ()
+///         Homepage:  http://fortawesome.github.com/Font-Awesome/
 /// * Brandico, (C) 2012 by Vitaly Puzrin
 ///         Author:    Crowdsourced, for Fontello project
 ///         License:   SIL (http://scripts.sil.org/OFL)
@@ -29,6 +33,7 @@ class MyFlutterApp {
   static const _kFontFam = 'MyFlutterApp';
   static const _kFontPkg = null;
 
+  static const IconData whatsapp = IconData(0xf232, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData instagram_filled = IconData(0xf31f, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData percentage = IconData(0xf541, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

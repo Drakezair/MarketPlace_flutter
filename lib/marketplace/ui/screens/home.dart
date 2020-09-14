@@ -15,6 +15,8 @@ class _HomeState extends State<Home> {
   List _wallpapers = [];
   @override
   void initState() {
+    super.initState();
+
     initFetch() async {
       var _b = await Brands().getBrands();
       var _w = await Wallpapers().getWallpapers();
@@ -38,8 +40,6 @@ class _HomeState extends State<Home> {
     }
 
     initFetch();
-
-    super.initState();
   }
 
   @override
@@ -49,29 +49,29 @@ class _HomeState extends State<Home> {
           color: Color(0xFFf0f0f0),
           child: Column(
             children: <Widget>[
-              Container(
-                padding: EdgeInsets.all(10.0),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border(
-                    bottom: BorderSide(width: 1.0, color: Colors.black54),
-                  ),
-                ),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.search),
-                    hintText: "Busca una marca",
-                    contentPadding: EdgeInsets.only(top: 0, bottom: 0),
-                    fillColor: Colors.white,
-                    filled: true,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10.0),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              // Container(
+              //   padding: EdgeInsets.all(10.0),
+              //   decoration: BoxDecoration(
+              //     color: Colors.white,
+              //     border: Border(
+              //       bottom: BorderSide(width: 1.0, color: Colors.black54),
+              //     ),
+              //   ),
+              //   child: TextFormField(
+              //     decoration: InputDecoration(
+              //       prefixIcon: Icon(Icons.search),
+              //       hintText: "Busca una marca",
+              //       contentPadding: EdgeInsets.only(top: 0, bottom: 0),
+              //       fillColor: Colors.white,
+              //       filled: true,
+              //       border: OutlineInputBorder(
+              //         borderRadius: BorderRadius.all(
+              //           Radius.circular(10.0),
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              // ),
               Expanded(
                 child: ListView(
                   shrinkWrap: true,
@@ -79,15 +79,16 @@ class _HomeState extends State<Home> {
                     Container(
                       child: CarouselSlider(
                         options: CarouselOptions(
-                          height: 150.0,
+                          height: 139.0,
                           viewportFraction: 1.0,
+                          autoPlay: true,
                         ),
                         items: _wallpapers.map((i) {
                           return Builder(
                             builder: (BuildContext context) {
                               return Container(
                                 width: MediaQuery.of(context).size.width,
-                                decoration: BoxDecoration(color: Colors.amber),
+                                decoration: BoxDecoration(color: Colors.blue),
                                 child: Image.network(i),
                               );
                             },
@@ -116,6 +117,7 @@ class _HomeState extends State<Home> {
                           address: _brands[index]['address'],
                           phone: _brands[index]['phone'],
                           onDiscount: _brands[index]['onDiscount'],
+                          was: _brands[index]['was'],
                         ),
                       ),
                     ),

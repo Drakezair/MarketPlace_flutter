@@ -8,19 +8,19 @@ import 'package:LocAll/marketplace/repository/firebase_database.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProductDetail extends StatefulWidget {
-  final String id, name, desc, instagram, address, phone;
+  final String id, name, desc, instagram, address, phone, was;
   final bool onDiscount;
   final List<dynamic> photos;
-  ProductDetail({
-    this.id,
-    this.name,
-    this.desc,
-    this.photos,
-    this.instagram,
-    this.address,
-    this.phone,
-    this.onDiscount,
-  });
+  ProductDetail(
+      {this.id,
+      this.name,
+      this.desc,
+      this.photos,
+      this.instagram,
+      this.address,
+      this.phone,
+      this.onDiscount,
+      this.was});
   @override
   _ProductDetailState createState() => _ProductDetailState(
       id: id,
@@ -30,11 +30,12 @@ class ProductDetail extends StatefulWidget {
       instagram: instagram,
       address: address,
       phone: phone,
-      onDiscount: onDiscount);
+      onDiscount: onDiscount,
+      was: was);
 }
 
 class _ProductDetailState extends State<ProductDetail> {
-  final String id, name, desc, instagram, address, phone;
+  final String id, name, desc, instagram, address, phone, was;
   final bool onDiscount;
   final List<dynamic> photos;
   bool isFavorite = true;
@@ -42,15 +43,17 @@ class _ProductDetailState extends State<ProductDetail> {
   String comment;
   List<dynamic> comments = [];
 
-  _ProductDetailState(
-      {this.id,
-      this.name,
-      this.desc,
-      this.photos,
-      this.instagram,
-      this.address,
-      this.phone,
-      this.onDiscount});
+  _ProductDetailState({
+    this.id,
+    this.name,
+    this.desc,
+    this.photos,
+    this.instagram,
+    this.address,
+    this.phone,
+    this.onDiscount,
+    this.was,
+  });
 
   @override
   void initState() {
@@ -196,7 +199,8 @@ class _ProductDetailState extends State<ProductDetail> {
                           ),
                         ),
                         InkWell(
-                          onTap: () => launch("https://www.instagram.com/"),
+                          onTap: () => launch(
+                              "https://www.instagram.com/" + this.instagram),
                           child: Text(
                             this.instagram,
                             style: TextStyle(
@@ -220,7 +224,9 @@ class _ProductDetailState extends State<ProductDetail> {
                           ),
                         ),
                         Text(
-                          this.address,
+                          address.length >= 20
+                              ? address.substring(0, 20) + "..."
+                              : address,
                           style: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.w600,
@@ -244,6 +250,32 @@ class _ProductDetailState extends State<ProductDetail> {
                           onTap: () => launch("tel:" + this.phone.toString()),
                           child: Text(
                             this.phone.toString(),
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(20.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(right: 10.0),
+                          child: Icon(
+                            MyFlutterApp.whatsapp,
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () => launch(
+                              "https://api.whatsapp.com/send?phone=57" +
+                                  this.phone.toString()),
+                          child: Text(
+                            this.was.toString(),
                             style: TextStyle(
                               fontSize: 22,
                               fontWeight: FontWeight.w600,
