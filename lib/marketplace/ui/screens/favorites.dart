@@ -29,13 +29,13 @@ class _FavoritesState extends State<Favorites> {
           if (_tempFav.contains(e)) {
             tempBrandsArray.add(i);
             tempBrandskeyArray.add(e);
+            isNotEmpty = true;
           }
         });
 
         this.setState(() {
           _brands = tempBrandsArray;
           _brandsKeys = tempBrandskeyArray;
-          isNotEmpty = true;
         });
       }
     }

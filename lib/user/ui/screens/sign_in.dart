@@ -128,6 +128,20 @@ class _SignInState extends State<SignIn> {
                       ),
                     ),
                   ),
+                  Container(
+                    margin: EdgeInsets.only(top: 20.0),
+                    child: InkWell(
+                      onTap: () => Navigator.pushNamed(context, '/home'),
+                      child: Text(
+                        "Entrar como invitado",
+                        style: TextStyle(
+                          color: Color(0xFF3282b8),
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

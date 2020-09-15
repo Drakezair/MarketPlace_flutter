@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/ui/firebase_animated_list.dart';
 import "package:flutter/material.dart";
 import 'package:LocAll/user/repository/firebase_auth_service.dart';
 
@@ -15,9 +14,20 @@ class _ProfileState extends State<Profile> {
   void initState() {
     super.initState();
     FirebaseAuth.instance
-      ..currentUser().then((value) => this.setState(() {
-            email = value.email;
-          }));
+      ..currentUser().then((value) => {
+            if (value != null)
+              {
+                this.setState(() {
+                  email = value.email;
+                })
+              }
+            else
+              {
+                this.setState(() {
+                  email = "Invitado";
+                })
+              }
+          });
   }
 
   @override

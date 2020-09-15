@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:LocAll/marketplace/ui/screens/categories.dart';
@@ -14,6 +15,7 @@ class HomeApp extends StatefulWidget {
 
 class _HomeAppState extends State<HomeApp> {
   int index = 0;
+  bool auth = false;
 
   List<Widget> route = [
     Home(),
@@ -22,6 +24,40 @@ class _HomeAppState extends State<HomeApp> {
     Favorites(),
     Profile()
   ];
+  List<Widget> buttons = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    FirebaseAuth.instance
+      ..currentUser().then((value) => {
+            if (value != null)
+              {
+                this.setState(() {
+                  auth = true;
+                  route = [
+                    Home(),
+                    Discount(),
+                    Categories(),
+                    Favorites(),
+                    Profile()
+                  ];
+                })
+              }
+            else
+              {
+                this.setState(() {
+                  auth = false;
+                  route = [
+                    Home(),
+                    Categories(),
+                    Profile(),
+                  ];
+                })
+              }
+          });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,30 +65,41 @@ class _HomeAppState extends State<HomeApp> {
       appBar: PreferredSize(child: AppBar(), preferredSize: Size.fromHeight(0)),
       body: route[index],
       bottomNavigationBar: CupertinoTabBar(
-        currentIndex: index,
-        onTap: (value) {
-          this.setState(() {
-            index = value;
-          });
-        },
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(MyFlutterApp.percentage),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.grid_view),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-          ),
-        ],
-      ),
+          currentIndex: index,
+          onTap: (value) {
+            this.setState(() {
+              index = value;
+            });
+          },
+          items: auth == true
+              ? [
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.home),
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(MyFlutterApp.percentage),
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.grid_view),
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.favorite),
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.person),
+                  ),
+                ]
+              : [
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.home),
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.grid_view),
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.person),
+                  ),
+                ]),
     );
   }
 }

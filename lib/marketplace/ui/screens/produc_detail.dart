@@ -39,6 +39,7 @@ class _ProductDetailState extends State<ProductDetail> {
   final bool onDiscount;
   final List<dynamic> photos;
   bool isFavorite = true;
+  bool auth = false;
   String email = '';
   String comment;
   List<dynamic> comments = [];
@@ -58,20 +59,27 @@ class _ProductDetailState extends State<ProductDetail> {
   @override
   void initState() {
     initFetch() async {
-      FirebaseAuth.instance.currentUser().then((value) {
-        this.setState(() {
-          email = value.email;
-        });
+      await FirebaseAuth.instance.currentUser().then((value) {
+        if (value != null) {
+          this.setState(() {
+            email = value.email;
+            auth = true;
+          });
+        } else {
+          auth = false;
+        }
       });
-      var _favorites = await Brands().getFavorites();
-      if (_favorites.value != null) {
-        _favorites.value.forEach((i, e) {
-          if (e == id) {
-            this.setState(() {
-              isFavorite = false;
-            });
-          }
-        });
+      if (auth == true) {
+        var _favorites = await Brands().getFavorites();
+        if (_favorites.value != null) {
+          _favorites.value.forEach((i, e) {
+            if (e == id) {
+              this.setState(() {
+                isFavorite = false;
+              });
+            }
+          });
+        }
       }
     }
 
@@ -302,46 +310,50 @@ class _ProductDetailState extends State<ProductDetail> {
                 children: [
                   Column(
                     children: [
-                      RaisedButton(
-                        color: Colors.blue,
-                        onPressed: () {
-                          showModalBottomSheet(
-                            context: context,
-                            builder: (context) => Container(
-                              height: 150.0,
-                              padding: EdgeInsets.all(20.0),
-                              child: Column(
-                                children: [
-                                  TextFormField(
-                                    decoration: InputDecoration(
-                                      hintText: "Comentario",
+                      auth
+                          ? RaisedButton(
+                              color: Colors.blue,
+                              onPressed: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) => Container(
+                                    height: 150.0,
+                                    padding: EdgeInsets.all(20.0),
+                                    child: Column(
+                                      children: [
+                                        TextFormField(
+                                          decoration: InputDecoration(
+                                            hintText: "Comentario",
+                                          ),
+                                          onChanged: (value) =>
+                                              this.setState(() {
+                                            comment = value;
+                                          }),
+                                        ),
+                                        Spacer(),
+                                        RaisedButton(
+                                          onPressed: () {
+                                            Brands().addComment(comment, id);
+                                            Navigator.of(context).pop();
+                                          },
+                                          color: Colors.blue,
+                                          child: Text(
+                                            "Enviar",
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                        )
+                                      ],
                                     ),
-                                    onChanged: (value) => this.setState(() {
-                                      comment = value;
-                                    }),
                                   ),
-                                  Spacer(),
-                                  RaisedButton(
-                                    onPressed: () {
-                                      Brands().addComment(comment, id);
-                                      Navigator.of(context).pop();
-                                    },
-                                    color: Colors.blue,
-                                    child: Text(
-                                      "Enviar",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  )
-                                ],
+                                );
+                              },
+                              child: Text(
+                                "Añadir comentario",
+                                style: TextStyle(color: Colors.white),
                               ),
-                            ),
-                          );
-                        },
-                        child: Text(
-                          "Añadir comentario",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
+                            )
+                          : Container(),
                       ...comments,
                     ],
                   )
@@ -351,15 +363,17 @@ class _ProductDetailState extends State<ProductDetail> {
           ],
         ),
       ),
-      floatingActionButton: isFavorite
-          ? FloatingActionButton(
-              onPressed: () => handleAddFavorite(),
-              child: Icon(Icons.favorite),
-            )
-          : FloatingActionButton(
-              onPressed: () => handleRemoveFavorite(),
-              child: Icon(Icons.close),
-            ),
+      floatingActionButton: auth
+          ? isFavorite
+              ? FloatingActionButton(
+                  onPressed: () => handleAddFavorite(),
+                  child: Icon(Icons.favorite),
+                )
+              : FloatingActionButton(
+                  onPressed: () => handleRemoveFavorite(),
+                  child: Icon(Icons.close),
+                )
+          : null,
     );
   }
 }
