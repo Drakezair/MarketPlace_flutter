@@ -27,21 +27,21 @@ class _SignInState extends State<SignIn> {
             Container(
               height: MediaQuery.of(context).size.height / 1.5,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.elliptical(
-                      MediaQuery.of(context).size.width / 2, 100.0),
-                  bottomRight: Radius.elliptical(
-                      MediaQuery.of(context).size.width / 2, 100.0),
-                ),
-                gradient: LinearGradient(
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                  colors: [
-                    Color(0xFF00bcd4),
-                    Color(0xFFb2ebf2),
-                  ],
-                ),
-              ),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.elliptical(
+                        MediaQuery.of(context).size.width / 2, 100.0),
+                    bottomRight: Radius.elliptical(
+                        MediaQuery.of(context).size.width / 2, 100.0),
+                  ),
+                  // gradient: LinearGradient(
+                  //   begin: Alignment.bottomCenter,
+                  //   end: Alignment.topCenter,
+                  //   colors: [
+                  //     Color(0xFF00bcd4),
+                  //     Color(0xFFb2ebf2),
+                  //   ],
+                  // ),
+                  color: Colors.black),
             ),
             Container(
               margin: EdgeInsets.only(

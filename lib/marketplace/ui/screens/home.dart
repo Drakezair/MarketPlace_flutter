@@ -11,7 +11,6 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List _brands = [];
-  List _brandsKeys = [];
   List _wallpapers = [];
   @override
   void initState() {
@@ -21,20 +20,17 @@ class _HomeState extends State<Home> {
       var _b = await Brands().getBrands();
       var _w = await Wallpapers().getWallpapers();
       var tempBrandsArray = [];
-      var tempBrandskeyArray = [];
       var tempWallpapers = [];
       _w.value.forEach((e, i) {
         tempWallpapers.add(i["photo"]);
       });
       _b.value.forEach((e, i) {
         if (!i['onDiscount']) {
-          tempBrandsArray.add(i);
-          tempBrandskeyArray.add(e);
+          tempBrandsArray.add({...i, 'id': e});
         }
       });
       this.setState(() {
-        _brands = tempBrandsArray;
-        _brandsKeys = tempBrandskeyArray;
+        _brands = tempBrandsArray..shuffle();
         _wallpapers = tempWallpapers;
       });
     }
@@ -88,7 +84,7 @@ class _HomeState extends State<Home> {
                             builder: (BuildContext context) {
                               return Container(
                                 width: MediaQuery.of(context).size.width,
-                                decoration: BoxDecoration(color: Colors.blue),
+                                decoration: BoxDecoration(color: Colors.black),
                                 child: Image.network(i),
                               );
                             },
@@ -97,7 +93,8 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.only(top: 10.0),
+                      padding:
+                          EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
                       child: GridView.builder(
                         shrinkWrap: true,
                         physics: ScrollPhysics(),
@@ -109,7 +106,7 @@ class _HomeState extends State<Home> {
                         ),
                         itemCount: _brands.length,
                         itemBuilder: (context, index) => CardMarketplace(
-                          id: _brandsKeys[index],
+                          id: _brands[index]["id"],
                           photos: _brands[index]['photos'],
                           name: _brands[index]['name'],
                           desc: _brands[index]['desc'],

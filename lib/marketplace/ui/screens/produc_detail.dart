@@ -155,6 +155,7 @@ class _ProductDetailState extends State<ProductDetail> {
                 return Builder(
                   builder: (BuildContext context) {
                     return Container(
+                        color: Colors.black,
                         width: MediaQuery.of(context).size.width,
                         child: Hero(
                           tag: 'taghero$id',
@@ -167,13 +168,14 @@ class _ProductDetailState extends State<ProductDetail> {
             Container(
               padding: EdgeInsets.all(10.0),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Text(
                     name,
                     style: TextStyle(
                       fontSize: 30.0,
                       fontWeight: FontWeight.w900,
+                      fontFamily: "Montserrat",
                     ),
                   ),
                   Text(desc.length >= 150 ? desc.substring(0, 150) : desc)
@@ -195,6 +197,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       fontSize: 20.0),
                 ),
                 children: [
+                  Divider(),
                   Container(
                     padding: EdgeInsets.all(20.0),
                     child: Row(
@@ -204,6 +207,7 @@ class _ProductDetailState extends State<ProductDetail> {
                           padding: EdgeInsets.only(right: 10.0),
                           child: Icon(
                             MyFlutterApp.instagram_filled,
+                            color: Colors.blue,
                           ),
                         ),
                         InkWell(
@@ -212,7 +216,7 @@ class _ProductDetailState extends State<ProductDetail> {
                           child: Text(
                             this.instagram,
                             style: TextStyle(
-                              fontSize: 22,
+                              fontSize: 20,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -220,6 +224,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       ],
                     ),
                   ),
+                  Divider(),
                   Container(
                     padding: EdgeInsets.all(20.0),
                     child: Row(
@@ -229,6 +234,7 @@ class _ProductDetailState extends State<ProductDetail> {
                           padding: EdgeInsets.only(right: 10.0),
                           child: Icon(
                             Icons.home_filled,
+                            color: Colors.blue,
                           ),
                         ),
                         Text(
@@ -243,6 +249,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       ],
                     ),
                   ),
+                  Divider(),
                   Container(
                     padding: EdgeInsets.all(20.0),
                     child: Row(
@@ -252,6 +259,7 @@ class _ProductDetailState extends State<ProductDetail> {
                           padding: EdgeInsets.only(right: 10.0),
                           child: Icon(
                             Icons.phone,
+                            color: Colors.blue,
                           ),
                         ),
                         InkWell(
@@ -267,6 +275,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       ],
                     ),
                   ),
+                  Divider(),
                   Container(
                     padding: EdgeInsets.all(20.0),
                     child: Row(
@@ -276,6 +285,7 @@ class _ProductDetailState extends State<ProductDetail> {
                           padding: EdgeInsets.only(right: 10.0),
                           child: Icon(
                             MyFlutterApp.whatsapp,
+                            color: Colors.blue,
                           ),
                         ),
                         InkWell(

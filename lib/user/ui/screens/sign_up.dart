@@ -28,20 +28,20 @@ class _SignUpState extends State<SignUp> {
             Container(
               height: MediaQuery.of(context).size.height / 1.5,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.elliptical(
-                      MediaQuery.of(context).size.width / 2, 100.0),
-                  bottomRight: Radius.elliptical(
-                      MediaQuery.of(context).size.width / 2, 100.0),
-                ),
-                gradient: LinearGradient(
-                  begin: Alignment.bottomCenter,
-                  colors: [
-                    Color(0xFF0f4c75),
-                    Color(0xFF3282b8),
-                  ],
-                ),
-              ),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.elliptical(
+                        MediaQuery.of(context).size.width / 2, 100.0),
+                    bottomRight: Radius.elliptical(
+                        MediaQuery.of(context).size.width / 2, 100.0),
+                  ),
+                  // gradient: LinearGradient(
+                  //   begin: Alignment.bottomCenter,
+                  //   colors: [
+                  //     Color(0xFF0f4c75),
+                  //     Color(0xFF3282b8),
+                  //   ],
+                  // ),
+                  color: Colors.black),
             ),
             Container(
               margin: EdgeInsets.all(30.0),

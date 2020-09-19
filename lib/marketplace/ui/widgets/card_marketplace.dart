@@ -38,24 +38,27 @@ class CardMarketplace extends StatelessWidget {
       ),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
-        ),
+            color: Colors.white,
+            borderRadius: BorderRadius.all(Radius.circular(10.0))),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Hero(
               tag: "taghero$id",
-              child: Image(
-                height: MediaQuery.of(context).size.width / 2.03,
-                image: NetworkImage(photos[0]),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                child: Image(
+                  height: MediaQuery.of(context).size.width / 2.5,
+                  image: NetworkImage(photos[0]),
+                ),
               ),
             ),
             Container(
-              padding: EdgeInsets.only(left: 5.0),
+              padding: EdgeInsets.only(left: 5.0, top: 8.0),
               child: Text(
-                name,
-                style: TextStyle(fontSize: 20.0),
+                name.length > 11 ? name.substring(0, 11) + '...' : name,
+                style: TextStyle(fontSize: 15.0),
               ),
             ),
           ],

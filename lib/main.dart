@@ -22,6 +22,7 @@ class _MyAppState extends State {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        fontFamily: 'Montserrat',
       ),
       initialRoute: '/',
       routes: {
