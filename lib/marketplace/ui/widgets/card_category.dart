@@ -24,23 +24,31 @@ class CardCategory extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
+          borderRadius: BorderRadius.all(
+            Radius.circular(10.0),
+          ),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Hero(
-              tag: "taghero$id",
-              child: Image(
-                height: MediaQuery.of(context).size.width / 2.03,
-                image: NetworkImage(photo),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Hero(
+                tag: "taghero$id",
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: Image(
+                    height: MediaQuery.of(context).size.width / 2.5,
+                    image: NetworkImage(photo),
+                  ),
+                ),
               ),
             ),
             Container(
-              padding: EdgeInsets.only(left: 5.0),
               child: Text(
                 name,
-                style: TextStyle(fontSize: 20.0),
+                style: TextStyle(fontSize: 15.0),
               ),
             ),
           ],

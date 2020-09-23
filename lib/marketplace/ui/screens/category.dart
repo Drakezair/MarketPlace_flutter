@@ -80,7 +80,8 @@ class _CategoryState extends State<Category> {
                     shrinkWrap: true,
                     children: <Widget>[
                       Container(
-                        padding: EdgeInsets.only(top: 10.0),
+                        padding:
+                            EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
                         child: GridView.builder(
                           shrinkWrap: true,
                           physics: ScrollPhysics(),
