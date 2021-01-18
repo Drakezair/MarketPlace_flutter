@@ -1,3 +1,4 @@
+import 'package:LocAll/user/ui/screens/forgot.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class _MyAppState extends State {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: Colors.grey[900],
         visualDensity: VisualDensity.adaptivePlatformDensity,
         fontFamily: 'Montserrat',
       ),
@@ -29,6 +30,7 @@ class _MyAppState extends State {
         '/': (context) => RoutePage(),
         '/auth/sign_in': (context) => SignIn(),
         '/auth/sign_up': (context) => SignUp(),
+        '/auth/forgot': (context) => Forgot(),
         '/home': (context) => HomeApp(),
       },
     );

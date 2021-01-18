@@ -1,20 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:LocAll/user/repository/firebase_auth_service.dart';
 
-class SignIn extends StatefulWidget {
+class Forgot extends StatefulWidget {
   @override
-  _SignInState createState() => _SignInState();
+  _ForgotState createState() => _ForgotState();
 }
 
-class _SignInState extends State<SignIn> {
+class _ForgotState extends State<Forgot> {
   String email, password;
   handleSubmit() async {
-    if (await Auth()
-        .signInWithEmailAndPassword(email: email, password: password)) {
-      Navigator.pushReplacementNamed(context, "/home");
+    if (await Auth().recoverPassword(email: email)) {
+      _showMyDialog();
     } else {
       // TODO
     }
+  }
+
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Revisa tu correo'),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Ok'),
+              onPressed: () {
+                Navigator.of(context).pushReplacementNamed("/auth/sign_in");
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -65,8 +84,12 @@ class _SignInState extends State<SignIn> {
                       child: Column(
                         children: <Widget>[
                           Text(
-                            'Inicia Sesión',
-                            style: TextStyle(fontSize: 30.0),
+                            'Recuperar contraseña',
+                            style: TextStyle(
+                                fontSize: 20.0, fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            height: 10.0,
                           ),
                           TextFormField(
                             decoration: InputDecoration(
@@ -78,20 +101,7 @@ class _SignInState extends State<SignIn> {
                             }),
                           ),
                           SizedBox(
-                            height: 30.0,
-                          ),
-                          TextFormField(
-                            obscureText: true,
-                            decoration: InputDecoration(
-                              hintText: "Contraseña",
-                              suffixIcon: Icon(Icons.vpn_key),
-                            ),
-                            onChanged: (newValue) => this.setState(() {
-                              password = newValue.toString();
-                            }),
-                          ),
-                          SizedBox(
-                            height: 30.0,
+                            height: 10.0,
                           ),
                           ButtonTheme(
                             minWidth: MediaQuery.of(context).size.width,
@@ -109,21 +119,6 @@ class _SignInState extends State<SignIn> {
                               ),
                             ),
                           ),
-                          Container(
-                            margin: EdgeInsets.only(top: 20.0),
-                            child: InkWell(
-                              onTap: () =>
-                                  Navigator.pushNamed(context, '/auth/forgot'),
-                              child: Text(
-                                "Recuperar contraseña",
-                                style: TextStyle(
-                                  color: Color(0xFF3282b8),
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
                         ],
                       ),
                     ),
@@ -132,23 +127,9 @@ class _SignInState extends State<SignIn> {
                     margin: EdgeInsets.only(top: 20.0),
                     child: InkWell(
                       onTap: () =>
-                          Navigator.pushNamed(context, '/auth/sign_up'),
+                          Navigator.pushNamed(context, '/auth/sign_in'),
                       child: Text(
-                        "Crear cuenta",
-                        style: TextStyle(
-                          color: Color(0xFF3282b8),
-                          fontSize: 15.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(top: 20.0),
-                    child: InkWell(
-                      onTap: () => Navigator.pushNamed(context, '/home'),
-                      child: Text(
-                        "Entrar como invitado",
+                        "Iniciar sesion",
                         style: TextStyle(
                           color: Color(0xFF3282b8),
                           fontSize: 15.0,

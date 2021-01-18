@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:LocAll/marketplace/repository/firebase_database.dart';
@@ -12,6 +14,8 @@ class Categories extends StatefulWidget {
 class _CategoriesState extends State<Categories> {
   List _categories = [];
   List _categoriesKeys = [];
+  String region, email, uuid;
+
   @override
   void initState() {
     super.initState();
@@ -63,6 +67,13 @@ class _CategoriesState extends State<Categories> {
               //     ),
               //   ),
               // ),
+              Padding(
+                padding: EdgeInsets.all(20.0),
+                child: Text("Categorias",
+                    style:
+                        TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold)),
+              ),
+
               Expanded(
                 child: ListView(
                   shrinkWrap: true,
@@ -76,14 +87,14 @@ class _CategoriesState extends State<Categories> {
                           crossAxisCount: 2,
                           mainAxisSpacing: 7.0,
                           crossAxisSpacing: 10.0,
-                          childAspectRatio: 2 / 2.3,
+                          childAspectRatio: 2 / 1.5,
                         ),
                         itemCount: _categories.length,
                         itemBuilder: (context, index) => CardCategory(
-                          id: _categoriesKeys[index],
-                          name: _categories[index]['name'],
-                          photo: _categories[index]["photo"],
-                        ),
+                            id: _categoriesKeys[index],
+                            name: _categories[index]['name'],
+                            photo: _categories[index]["photo"],
+                            color: _categories[index]["color"]),
                       ),
                     ),
                   ],

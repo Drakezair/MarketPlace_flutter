@@ -1,4 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:LocAll/marketplace/repository/firebase_database.dart';
@@ -15,6 +17,8 @@ class _CategoryState extends State<Category> {
   List _brands = [];
   List _brandsKeys = [];
   String name, id;
+  List _regions = [];
+  String region, email, uuid;
 
   _CategoryState({this.id, this.name});
 
@@ -23,22 +27,83 @@ class _CategoryState extends State<Category> {
     initFetch() async {
       var _b = await Brands().getBrands();
       var tempBrandsArray = [];
-      var tempBrandskeyArray = [];
+      var _r = await Regions().getRegions();
+      var _temregions = [];
+      _temregions.add({"name": "Todas las regiones", "code": ""});
+      _r.value.forEach((e, i) {
+        _temregions.add(i);
+      });
       _b.value.forEach((e, i) {
         if (i["category"] == id) {
-          tempBrandsArray.add(i);
-          tempBrandskeyArray.add(e);
+          tempBrandsArray.add({...i, 'id': e});
         }
       });
       this.setState(() {
-        _brands = tempBrandsArray;
-        _brandsKeys = tempBrandskeyArray;
+        _brands = tempBrandsArray..shuffle();
+        _regions = _temregions;
       });
+      FirebaseAuth.instance
+        ..currentUser().then((value) => {
+              if (value != null)
+                {
+                  this.setState(() {
+                    email = value.email;
+                    uuid = value.uid;
+                  }),
+                  FirebaseDatabase.instance
+                      .reference()
+                      .child("users")
+                      .child(value.uid)
+                      .once()
+                      .then((DataSnapshot val) => {
+                            print(val.value['name']),
+                            handleRegion(val.value["region"]),
+                            this.setState(() {
+                              region = val.value["region"];
+                            })
+                          })
+                }
+              else
+                {
+                  this.setState(() {
+                    email = "Invitado";
+                  })
+                }
+            });
     }
 
     initFetch();
 
     super.initState();
+  }
+
+  handleRegion(String value) async {
+    var _b = await Brands().getBrands();
+    var tempBrandsArray = [];
+
+    print(value);
+
+    if (value == "") {
+      _b.value.forEach((e, i) {
+        if (!i['onDiscount']) {
+          tempBrandsArray.add({...i, 'id': e});
+        }
+      });
+      this.setState(() {
+        _brands = tempBrandsArray;
+        region = value;
+      });
+    } else {
+      _b.value.forEach((e, i) {
+        if (i['region'] == value) {
+          tempBrandsArray.add({...i, 'id': e});
+        }
+      });
+      this.setState(() {
+        _brands = tempBrandsArray;
+        region = value;
+      });
+    }
   }
 
   @override
@@ -52,6 +117,39 @@ class _CategoryState extends State<Category> {
             color: Color(0xFFf0f0f0),
             child: Column(
               children: <Widget>[
+                Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.all(10),
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[900],
+                    ),
+                    child: DropdownButton(
+                      dropdownColor: Colors.black,
+                      hint: Text(
+                        "Región",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25),
+                      elevation: 16,
+                      value: region,
+                      onChanged: (String value) => handleRegion(value),
+                      underline: Container(
+                        height: 2,
+                        color: Colors.white,
+                      ),
+                      items: _regions
+                          .map(
+                            (e) => new DropdownMenuItem(
+                              child: Text(e['name'].toString()),
+                              value: e["code"].toString(),
+                            ),
+                          )
+                          .toList(),
+                    )),
                 // Container(
                 //   padding: EdgeInsets.all(10.0),
                 //   decoration: BoxDecoration(
@@ -94,7 +192,7 @@ class _CategoryState extends State<Category> {
                           ),
                           itemCount: _brands.length,
                           itemBuilder: (context, index) => CardMarketplace(
-                            id: _brandsKeys[index],
+                            id: _brands[index]["id"],
                             photos: _brands[index]['photos'],
                             name: _brands[index]['name'],
                             desc: _brands[index]['desc'],
@@ -102,6 +200,7 @@ class _CategoryState extends State<Category> {
                             address: _brands[index]['address'],
                             phone: _brands[index]['phone'],
                             onDiscount: _brands[index]['onDiscount'],
+                            was: _brands[index]['was'],
                           ),
                         ),
                       ),

@@ -91,3 +91,15 @@ class CategoriesRepo {
     });
   }
 }
+
+class Regions {
+  getRegions() async {
+    return await FirebaseDatabase.instance
+        .reference()
+        .child('regiones')
+        .once()
+        .then((DataSnapshot value) {
+      return value;
+    });
+  }
+}

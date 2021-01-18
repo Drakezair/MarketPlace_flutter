@@ -1,3 +1,5 @@
+import 'package:LocAll/marketplace/repository/firebase_database.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:LocAll/user/repository/firebase_auth_service.dart';
 
@@ -7,15 +9,45 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  String email, password, name;
-
+  String email, password, name, phone, address;
+  List _regions = [];
+  String region;
   handleSubmit() async {
     if (await Auth().signUpWithEmailAndPassword(
-        email: email, password: password, name: name)) {
+        email: email,
+        password: password,
+        name: name,
+        phone: phone,
+        region: region)) {
       Navigator.pushReplacementNamed(context, "/home");
     } else {
       // TODO
     }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    initFetch() async {
+      var _r = await Regions().getRegions();
+      var _temregions = [];
+      _temregions.add({"name": "Todas las regiones", "code": ""});
+      _r.value.forEach((e, i) {
+        _temregions.add(i);
+      });
+      this.setState(() {
+        _regions = _temregions;
+      });
+    }
+
+    initFetch();
+    super.initState();
+  }
+
+  handleRegion(String value) async {
+    this.setState(() {
+      region = value;
+    });
   }
 
   @override
@@ -81,6 +113,18 @@ class _SignUpState extends State<SignUp> {
                           ),
                           TextFormField(
                             decoration: InputDecoration(
+                              hintText: "Teléfono",
+                              suffixIcon: Icon(Icons.phone),
+                            ),
+                            onChanged: (newValue) => this.setState(() {
+                              phone = newValue.toString();
+                            }),
+                          ),
+                          SizedBox(
+                            height: 30.0,
+                          ),
+                          TextFormField(
+                            decoration: InputDecoration(
                               hintText: "Correo electrónico",
                               suffixIcon: Icon(Icons.email),
                             ),
@@ -103,6 +147,29 @@ class _SignUpState extends State<SignUp> {
                           ),
                           SizedBox(
                             height: 30.0,
+                          ),
+                          DropdownButton(
+                            hint: Text(
+                              "Región",
+                            ),
+                            style: TextStyle(
+                              color: Colors.black,
+                            ),
+                            elevation: 16,
+                            value: region,
+                            onChanged: (String value) => handleRegion(value),
+                            underline: Container(
+                              height: 2,
+                              color: Colors.black,
+                            ),
+                            items: _regions
+                                .map(
+                                  (e) => new DropdownMenuItem(
+                                    child: Text(e['name'].toString()),
+                                    value: e["code"].toString(),
+                                  ),
+                                )
+                                .toList(),
                           ),
                           ButtonTheme(
                             minWidth: MediaQuery.of(context).size.width,

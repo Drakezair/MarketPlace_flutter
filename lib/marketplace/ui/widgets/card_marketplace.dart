@@ -57,7 +57,7 @@ class CardMarketplace extends StatelessWidget {
             Container(
               padding: EdgeInsets.only(left: 5.0, top: 8.0),
               child: Text(
-                name.length > 11 ? name.substring(0, 11) + '...' : name,
+                name.length > 20 ? name.substring(0, 20) + '...' : name,
                 style: TextStyle(fontSize: 15.0),
               ),
             ),

@@ -50,6 +50,7 @@ class _FavoritesState extends State<Favorites> {
     return isNotEmpty
         ? SafeArea(
             child: Container(
+                padding: EdgeInsets.all(10.0),
                 color: Color(0xFFf0f0f0),
                 child: Column(
                   children: <Widget>[

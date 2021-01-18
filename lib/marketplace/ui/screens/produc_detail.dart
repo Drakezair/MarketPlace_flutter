@@ -178,7 +178,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       fontFamily: "Montserrat",
                     ),
                   ),
-                  Text(desc.length >= 150 ? desc.substring(0, 150) : desc)
+                  Text(desc.length >= 250 ? desc.substring(0, 250) : desc)
                 ],
               ),
             ),
@@ -291,7 +291,10 @@ class _ProductDetailState extends State<ProductDetail> {
                         InkWell(
                           onTap: () => launch(
                               "https://api.whatsapp.com/send?phone=57" +
-                                  this.phone.toString()),
+                                  this.was.toString() +
+                                  "&text=Hola%2C" +
+                                  Uri.encodeFull(name) +
+                                  "%20.%20Te%20vi%20en%20LOCALL%20y%20estoy%20interesad%40"),
                           child: Text(
                             this.was.toString(),
                             style: TextStyle(
@@ -378,10 +381,12 @@ class _ProductDetailState extends State<ProductDetail> {
               ? FloatingActionButton(
                   onPressed: () => handleAddFavorite(),
                   child: Icon(Icons.favorite),
+                  backgroundColor: Colors.black,
                 )
               : FloatingActionButton(
                   onPressed: () => handleRemoveFavorite(),
                   child: Icon(Icons.close),
+                  backgroundColor: Colors.black,
                 )
           : null,
     );
