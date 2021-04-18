@@ -77,94 +77,116 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              height: 100.0,
-              width: 100.0,
-              margin: EdgeInsets.all(20.0),
-              decoration: BoxDecoration(
-                color: Colors.black38,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(100.0),
-                ),
-              ),
-              child: Icon(
-                Icons.person,
-                color: Colors.white,
-                size: 80.0,
-              ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(top: 50, bottom: 50),
+            child: Text(
+              "Información de usuario",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
             ),
-            Padding(
-                padding: EdgeInsets.all(20.0),
-                child:
-                    Text(email, style: TextStyle(fontWeight: FontWeight.bold))),
-            Padding(
+          ),
+
+          // Container(
+          //   height: 100.0,
+          //   width: 100.0,
+          //   margin: EdgeInsets.all(20.0),
+          //   decoration: BoxDecoration(
+          //     color: Colors.black38,
+          //     borderRadius: BorderRadius.all(
+          //       Radius.circular(100.0),
+          //     ),
+          //   ),
+          //   child: Icon(
+          //     Icons.person,
+          //     color: Colors.white,
+          //     size: 80.0,
+          //   ),
+          // ),
+          Text(
+            "E-mail",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          ),
+          Padding(
               padding: EdgeInsets.all(20.0),
-              child: TextFormField(
-                textAlign: TextAlign.center,
-                onChanged: (newValue) => this.setState(() {
-                  name = newValue.toString();
-                }),
-                decoration: InputDecoration(
-                  hintText: name,
-                ),
+              child:
+                  Text(email, style: TextStyle(fontWeight: FontWeight.bold))),
+          Text(
+            "Nombre",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          ),
+          Padding(
+            padding: EdgeInsets.all(20.0),
+            child: TextFormField(
+              textAlign: TextAlign.center,
+              onChanged: (newValue) => this.setState(() {
+                name = newValue.toString();
+              }),
+              decoration: InputDecoration(
+                hintText: name,
               ),
             ),
-            Padding(
-              padding: EdgeInsets.all(20.0),
-              child: TextFormField(
-                textAlign: TextAlign.center,
-                onChanged: (newValue) => this.setState(() {
-                  phone = newValue.toString();
-                }),
-                decoration: InputDecoration(
-                  hintText: phone,
-                ),
+          ),
+          Text(
+            "Teléfono",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          ),
+          Padding(
+            padding: EdgeInsets.all(20.0),
+            child: TextFormField(
+              textAlign: TextAlign.center,
+              onChanged: (newValue) => this.setState(() {
+                phone = newValue.toString();
+              }),
+              decoration: InputDecoration(
+                hintText: phone,
               ),
             ),
-            DropdownButton(
-              hint: Text(
-                "Región",
-              ),
-              style: TextStyle(
-                color: Colors.black,
-              ),
-              elevation: 16,
-              value: region,
-              onChanged: (String value) => handleRegion(value),
-              underline: Container(
-                height: 2,
-                color: Colors.black,
-              ),
-              items: _regions
-                  .map(
-                    (e) => new DropdownMenuItem(
-                      child: Text(e['name'].toString()),
-                      value: e["code"].toString(),
-                    ),
-                  )
-                  .toList(),
+          ),
+          Text(
+            "Región",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          ),
+          DropdownButton(
+            hint: Text(
+              "Región",
             ),
-            SizedBox(
-              height: 40.0,
+            style: TextStyle(
+              color: Colors.black,
             ),
-            RaisedButton(
-              onPressed: () async => {
-                if (await Auth().updateProfile(
-                    uuid: uuid, name: name, phone: phone, region: region))
-                  {Navigator.pushNamed(context, '/home')}
-              },
-              child: Text("Guardar"),
+            elevation: 16,
+            value: region,
+            onChanged: (String value) => handleRegion(value),
+            underline: Container(
+              height: 2,
+              color: Colors.black,
             ),
-            RaisedButton(
-              onPressed: () => Auth().signOut(context),
-              child: Text("Cerrar sesión"),
-            ),
-          ],
-        ),
+            items: _regions
+                .map(
+                  (e) => new DropdownMenuItem(
+                    child: Text(e['name'].toString()),
+                    value: e["code"].toString(),
+                  ),
+                )
+                .toList(),
+          ),
+          SizedBox(
+            height: 40.0,
+          ),
+          RaisedButton(
+            onPressed: () async => {
+              if (await Auth().updateProfile(
+                  uuid: uuid, name: name, phone: phone, region: region))
+                {Navigator.pushNamed(context, '/home')}
+            },
+            child: Text("Guardar"),
+          ),
+          RaisedButton(
+            onPressed: () => Auth().signOut(context),
+            child: Text("Cerrar sesión"),
+          ),
+        ],
       ),
     );
   }
