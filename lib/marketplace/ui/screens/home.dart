@@ -123,21 +123,21 @@ class _HomeState extends State<Home> {
             children: <Widget>[
               Container(
                   alignment: Alignment.center,
-                  padding: EdgeInsets.all(10),
+                  padding: EdgeInsets.all(0),
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                     color: Colors.grey[900],
                   ),
                   child: DropdownButton(
-                    dropdownColor: Colors.black,
+                    dropdownColor: Colors.grey[900],
                     hint: Text(
                       "Región",
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        fontSize: 25),
+                        fontSize: 16),
                     elevation: 16,
                     value: region,
                     onChanged: (String value) => handleRegion(value),

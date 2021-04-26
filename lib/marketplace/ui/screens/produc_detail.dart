@@ -43,6 +43,7 @@ class _ProductDetailState extends State<ProductDetail> {
   String email = '';
   String comment;
   List<dynamic> comments = [];
+  int _current = 0;
 
   _ProductDetailState({
     this.id,
@@ -148,9 +149,13 @@ class _ProductDetailState extends State<ProductDetail> {
           children: <Widget>[
             CarouselSlider(
               options: CarouselOptions(
-                height: MediaQuery.of(context).size.width,
-                viewportFraction: 1.0,
-              ),
+                  height: MediaQuery.of(context).size.width,
+                  viewportFraction: 1.0,
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      _current = index;
+                    });
+                  }),
               items: photos.map((i) {
                 return Builder(
                   builder: (BuildContext context) {
@@ -162,6 +167,23 @@ class _ProductDetailState extends State<ProductDetail> {
                           child: Image.network(i),
                         ));
                   },
+                );
+              }).toList(),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: photos.map((url) {
+                int index = photos.indexOf(url);
+                return Container(
+                  width: 8.0,
+                  height: 8.0,
+                  margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: _current == index
+                        ? Color.fromRGBO(0, 0, 0, 0.9)
+                        : Color.fromRGBO(0, 0, 0, 0.4),
+                  ),
                 );
               }).toList(),
             ),
