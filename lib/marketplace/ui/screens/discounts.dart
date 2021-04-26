@@ -78,7 +78,7 @@ class _DiscountState extends State<Discount> {
         }
       });
       this.setState(() {
-        _brands = tempBrandsArray;
+        _brands = tempBrandsArray..shuffle();
         region = value;
       });
     } else {
@@ -88,7 +88,7 @@ class _DiscountState extends State<Discount> {
         }
       });
       this.setState(() {
-        _brands = tempBrandsArray;
+        _brands = tempBrandsArray..shuffle();
         region = value;
       });
     }

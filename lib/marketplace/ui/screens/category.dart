@@ -25,23 +25,6 @@ class _CategoryState extends State<Category> {
   @override
   void initState() {
     initFetch() async {
-      var _b = await Brands().getBrands();
-      var tempBrandsArray = [];
-      var _r = await Regions().getRegions();
-      var _temregions = [];
-      _temregions.add({"name": "Todas las regiones", "code": ""});
-      _r.value.forEach((e, i) {
-        _temregions.add(i);
-      });
-      _b.value.forEach((e, i) {
-        if (i["category"] == id) {
-          tempBrandsArray.add({...i, 'id': e});
-        }
-      });
-      this.setState(() {
-        _brands = tempBrandsArray..shuffle();
-        _regions = _temregions;
-      });
       FirebaseAuth.instance
         ..currentUser().then((value) => {
               if (value != null)
@@ -70,6 +53,23 @@ class _CategoryState extends State<Category> {
                   })
                 }
             });
+      var _b = await Brands().getBrands();
+      var tempBrandsArray = [];
+      var _r = await Regions().getRegions();
+      var _temregions = [];
+      _temregions.add({"name": "Todas las regiones", "code": ""});
+      _r.value.forEach((e, i) {
+        _temregions.add(i);
+      });
+      _b.value.forEach((e, i) {
+        if (i["category"] == id) {
+          tempBrandsArray.add({...i, 'id': e});
+        }
+      });
+      this.setState(() {
+        _brands = tempBrandsArray..shuffle();
+        _regions = _temregions;
+      });
     }
 
     initFetch();
@@ -85,22 +85,22 @@ class _CategoryState extends State<Category> {
 
     if (value == "") {
       _b.value.forEach((e, i) {
-        if (!i['onDiscount']) {
+        if (!i['onDiscount'] && i["category"] == id) {
           tempBrandsArray.add({...i, 'id': e});
         }
       });
       this.setState(() {
-        _brands = tempBrandsArray;
+        _brands = tempBrandsArray..shuffle();
         region = value;
       });
     } else {
       _b.value.forEach((e, i) {
-        if (i['region'] == value) {
+        if (i['region'] == value && i["category"] == id) {
           tempBrandsArray.add({...i, 'id': e});
         }
       });
       this.setState(() {
-        _brands = tempBrandsArray;
+        _brands = tempBrandsArray..shuffle();
         region = value;
       });
     }

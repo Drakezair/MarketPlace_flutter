@@ -36,30 +36,6 @@ class _HomeState extends State<Home> {
       },
     );
     initFetch() async {
-      var _b = await Brands().getBrands();
-      var _w = await Wallpapers().getWallpapers();
-      var tempBrandsArray = [];
-      var tempWallpapers = [];
-      var _r = await Regions().getRegions();
-      var _temregions = [];
-      _temregions.add({"name": "Todas las regiones", "code": ""});
-      _r.value.forEach((e, i) {
-        _temregions.add(i);
-      });
-      print(_regions);
-      _w.value.forEach((e, i) {
-        tempWallpapers.add(i["photo"]);
-      });
-      _b.value.forEach((e, i) {
-        if (!i['onDiscount']) {
-          tempBrandsArray.add({...i, 'id': e});
-        }
-      });
-      this.setState(() {
-        _brands = tempBrandsArray..shuffle();
-        _wallpapers = tempWallpapers;
-        _regions = _temregions;
-      });
       FirebaseAuth.instance
         ..currentUser().then((value) => {
               if (value != null)
@@ -82,6 +58,29 @@ class _HomeState extends State<Home> {
                           })
                 }
             });
+      var _b = await Brands().getBrands();
+      var _w = await Wallpapers().getWallpapers();
+      var tempBrandsArray = [];
+      var tempWallpapers = [];
+      var _r = await Regions().getRegions();
+      var _temregions = [];
+      _temregions.add({"name": "Todas las regiones", "code": ""});
+      _r.value.forEach((e, i) {
+        _temregions.add(i);
+      });
+      _w.value.forEach((e, i) {
+        tempWallpapers.add(i["photo"]);
+      });
+      _b.value.forEach((e, i) {
+        if (!i['onDiscount']) {
+          tempBrandsArray.add({...i, 'id': e});
+        }
+      });
+      this.setState(() {
+        _brands = tempBrandsArray..shuffle();
+        _wallpapers = tempWallpapers;
+        _regions = _temregions;
+      });
     }
 
     initFetch();
@@ -99,7 +98,7 @@ class _HomeState extends State<Home> {
         }
       });
       this.setState(() {
-        _brands = tempBrandsArray;
+        _brands = tempBrandsArray..shuffle();
         region = value;
       });
     } else {
@@ -109,7 +108,7 @@ class _HomeState extends State<Home> {
         }
       });
       this.setState(() {
-        _brands = tempBrandsArray;
+        _brands = tempBrandsArray..shuffle();
         region = value;
       });
     }
